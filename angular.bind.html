@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+    <p>bind的使用有两种情况，上下文，函数以及参数动态绑定，返回值为绑定之后的函数. 其中args是可选的动态参数，self在fn中使用this调用。
+    </p>
+    <script>
+
+        var self = {name:"zr"}
+        var fn = angular.bind(self,function(age){
+            alert(this.name + "is" + age + "!");
+        },'22');
+        fn();
+        var mn = angular.bind(self,function(age){
+            alert(this.name + 'is also' + age + "?");
+        });
+        mn(23);
+    </script>
+</body>
+</html>

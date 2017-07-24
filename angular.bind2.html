@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angular.bind</title>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+	<!-- 关于使用Zen Coding进行HTML代码简化 -->
+	<!-- div#odiv>h1+p -->
+	<div id="odiv">
+		<h1></h1>
+		<p></p>
+	</div>
+	<script>
+	/**
+	 * 使用YUIDoc写注释，可以生成标准规范的API文档
+	 * @type {Object}
+	 */
+	
+	/**
+	 * 
+	 * angular.bind 使用有两种方式，一是三个参数都传入，然后调用函数，
+	 * 二是传入前两个参数，之后调用函数时传参
+	 * @type {Object}
+	 */
+	var self = {name:'lilei'};
+	var fn = angular.bind(self,function(age){
+		alert(this.name + 'is' + age + '!');
+	},21);
+	fn();
+	var mn = angular.bind(self,function(age){
+		alert(this.name + 'is also' + age +'?');
+	});
+	mn(25);
+	</script>
+</body>
+</html>

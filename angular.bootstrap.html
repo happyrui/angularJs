@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angular.bootstrap</title>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		div{
+			width:100px;
+			height:100px;
+			background: #eee;
+		}
+	</style>
+</head>
+<body>
+	<div ng-controller="wel">
+		<span ng-bind="greet"></span>
+	</div>
+	
+	<script>
+	var app = angular.module('demo',[])  //创建一个demo模块
+	.controller('wel',function($scope){    //添加控制器，写方法，与ng-controller对应
+		$scope.greet = 'welcome';
+	});  
+	angular.bootstrap(document,['demo']);  //手动启动angularJs的这个demo模块    （DOM元素，要加载的模块，可选项）
+	</script>
+</body>
+</html>
