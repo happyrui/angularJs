@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fromJson，toJson</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="myCtrl">
+<p>fromJson(str) 把Json字符串转为对象</p>
+<p>toJson(obj) 把Json对象转为字符串</p>
+<div ng-bind="dd"></div>
+<div ng-bind="ll"></div>
+<br/>
+<div> </div>
+	<script>
+	/**
+	* app Module
+	*
+	* Description
+	*/
+	angular.module('app', []).controller('myCtrl', ['$scope', function($scope){
+		//var log = [];
+		var str = "{\"name\":\"wqe\"}";  //字符串形式
+		//var json = "{\"firstName\":\"fox\",\"lastName\":\"zhang\"}";	
+		var obj = {"name":"lili","age":21};
+		console.log(typeof str);
+		console.log(typeof obj);		
+		$scope.dd = angular.fromJson(str);
+		$scope.ll = angular.toJson(obj);
+		console.log(typeof $scope.dd);
+		console.log(typeof $scope.ll);
+	}]);
+	
+	</script>
+</body>
+</html>
