@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+	<p>获取html内容</p>
+	<h2>angular.element(string/dom),返回 [[object HTMLDivElement]]</h2>
+	<div id="test">element测试test</div>
+	使用html字符串为参数
+	<input type="button" onclick="button1()" value="button1"/><br/>
+    使用DOM元素作为参数
+    <input type="button" onclick="button2()" value="button2"/>
+    <script type="text/javascript">
+	    //使用html字符串为参数
+	    function button1() {
+	    	alert(angular.element('<div id="test">element测试</div>').html());
+	    }
+	    //使用DOM元素作为参数
+	    function button2() {
+		    var a = document.getElementById('test');
+		    alert(angular.element(a).html());
+	    }
+    </script>
+</body>
+</html>
