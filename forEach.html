@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>forEach</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="myCtrl">
+<div ng-bind="dd"></div>
+<br/>
+<div>类似于遍历，angular.forEach(yuan,function,mudi)将yuan数据通过function操作，返回到mudi</div>
+	<script>
+	/**
+	* app Module
+	*
+	* Description
+	*/
+	angular.module('app', []).controller('myCtrl', ['$scope', function($scope){
+		var log = [];
+		var json = {'name':'lili','age':21};
+		angular.forEach(json,function(value,key){
+			this.push(key + ':' + value);
+		},log);
+		$scope.dd = log.join(',');
+	}]);
+	
+	</script>
+</body>
+</html>
