@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>identity noop</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    <script>
+        angular.module("app",[]).controller('ctrl',function($scope){
+            $scope.a = function(n){
+                return n+4;
+            };
+            $scope.b = "qwe";
+            $scope.identityTest = function(fn,val){
+                return (fn || angular.identity)(val);   // fn 如果有，则将val带入， 如果是undefind 或 null 时 则使用 val返回
+            };
+            $scope.noopTest = function(fn,val){
+                return (fn || angular.noop)(val);  //fn 如果有，则将val带入， 如果是undefind 或 null 时 则返回 undefined
+            };
+
+            $scope.call = function(){
+                $scope.answer = $scope.identityTest($scope.a,$scope.b);
+                $scope.result = $scope.noopTest($scope.a,$scope.b);
+                console.log($scope.answer);
+                console.log($scope.result);
+            }
+           $scope.call();
+        })
+    </script>
+</body>
+</html>
