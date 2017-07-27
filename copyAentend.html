@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>copy entend</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+<p>angular.copy(source,[destination])第二个参数可选。第一个表示要复制的那个值，第二个参数表示目的</p>
+<p>angular.copy后，改变source不会影响destination，改变destination 不会改变source</p>
+<p>angular.extend(destination, source)可以是多个source des可以为空 改变source不会影响des，改变des不会影响source</p>
+
+
+
+    <script>
+        angular.module('app',[]).controller('ctrl',function($scope){
+            $scope.a = {"name":"lili","age":21};
+            $scope.b = angular.copy($scope.a);
+            console.log($scope.b);
+            $scope.c = angular.extend({},$scope.a);
+            console.log($scope.c);
+        })
+    </script>
+</body>
+</html>
