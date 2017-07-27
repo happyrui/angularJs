@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>injector module</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app">
+<p>angular.injector  负责创建和查找依赖   //用来创建一个注入器，可以用来给其他函数注入所依赖的对象</p>
+<p>创建一个injector对象, 调用injector对象的方法可以获得angular的service, 或者用来做依赖注入.</p>
+<p>angular.injector()可以调用多次，每次都返回新建的injector对象</p>
+<hr/>
+<p>angular.module   //两个参数，注册模块；一个参数，返回模块。太常用了。</p>
+<div>// 传递参数不止一个,代表新建模块;空数组代表该模块不依赖其他模块<br/>
+    var createModule = angular.module("myModule", []);<br/>
+    // 只有一个参数(模块名),代表获取模块<br/>
+    // 如果模块不存在,angular框架会抛异常<br/>
+    var getModule = angular.module("myModule");</div>
+<div id="odiv" ng-controller="ctrl"><input type="button" ng-click="injectorTest()" value="injector" />
+    {{name}}
+</div>
+<script>
+    var app = angular.module('app',[]);
+    app.controller('ctrl',['$scope',function($scope){
+        $scope.name = 'ss';
+        $scope.injectorTest = function(){
+            var $injector = angular.injector(['ng']);
+            $injector.invoke(function($http){
+                var scopes = angular.element(document.getElementById('odiv')).scope();
+                scopes.name = 'aa';
+            });
+        };
+    }]);
+
+    var app1 = angular.module('app1',[]);
+    app1.service('myService',function () {
+        this.m = 0;
+    });
+    var injector = angular.injector(['app1']);    // 参数为模块的名称，这个模块不能和以前的重复，需要新建一个
+    console.log(injector.get('myService').m);    //获取的是服务的名称
+
+
+
+
+</script>
+</body>
+</html>
