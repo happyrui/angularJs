@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类型转换</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+<p>type</p>
+    <script>
+        var str = "sss";
+        var num = 1;
+        var arr = [1,2,3];
+        var obj = {"name":"lili","age":21};
+        function fn(b){
+            return b+4;
+        }
+        var un ="";
+        var un1 ;
+        var ele1 = document.getElementsByTagName('p');
+        var ele = angular.element(document.getElementsByTagName('p'));
+        var date = new Date();
+        console.log(angular.isString(str)); //true
+        console.log(angular.isNumber(num));//true
+        console.log(angular.isArray(arr));//true
+        console.log(angular.isObject(obj));//true
+        console.log(angular.isFunction(fn));//true
+        console.log(angular.isDefined(un)); //true  //var un  时为假  未定义时为假 判断括号内的值是否存在
+        console.log(angular.isUndefined(un1)); //true
+        console.log(ele1);
+        console.log(ele);
+        console.log(angular.isElement(ele1));//false  //原因不明
+        console.log(angular.isElement(ele));//true   必须使用angular.element
+        console.log(date);
+        console.log(angular.isDate(date));//true
+    </script>
+</body>
+</html>
