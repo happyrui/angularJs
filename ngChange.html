@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngChange</title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-controller="myCtrl" ng-app="changeEx">
+        <div>
+            只有在model值改变时才会触发
+        </div>
+        <input type="checkbox" ng-change="change()" ng-model="confirmed" id="c1">
+        <div>{{contry}}</div>
+        <div>{{confirmed}}</div>
+    </div>
+    <script>
+        angular.module('changeEx',[]).controller('myCtrl',function($scope){
+            $scope.contry = 1;
+            $scope.change = function () {
+                $scope.contry++;
+            }
+        })
+    </script>
+</body>
+</html>
