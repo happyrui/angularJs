@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngKeydown-ngKeypress-ngKeyup</title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="keyEx" ng-controller="myCtrl">
+        <div>
+            <input type="text" ng-keydown="c=c+1" ng-init="c=1">
+            {{c}}
+        </div>
+        <div>
+            <input type="text" ng-keypress="m=m*2" ng-init="m=0">
+            {{m}}
+        </div>
+        <div>
+            <input type="text" ng-keyup="n=n-1" ng-init="n=10">
+            {{n}}
+        </div>
+    </div>
+<script>
+    angular.module('keyEx',[]).controller('myCtrl',function(){
+
+    })
+</script>
+</body>
+</html>
