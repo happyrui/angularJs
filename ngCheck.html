@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngChecked </title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="checkEx" ng-controller="myCtrl">
+        <div>
+            html规范没有要求浏览器保存布尔值属性的值，比如checked,如果将一个表达式赋予这个属性，当浏览器删除该属性时，
+            绑定的信息就会丢失，ngchecked就是解决这个问题 提供了一个永久性的可靠的地方来存储信息。
+        </div>
+        <input type="checkbox" ng-model="cont" id="c1"><br/>
+        <!--ng-checked 使得其记住一个存储信息-->
+        <input type="checkbox" ng-checked="cont">
+    </div>
+    <script>
+        angular.module('checkEx',[]).controller('myCtrl',function($scope){
+            $scope.cont = true;
+        })
+    </script>
+</body>
+</html>
