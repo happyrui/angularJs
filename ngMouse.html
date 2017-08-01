@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngMousedown-enter-leave-move-over-up</title>
+    <script src="angular.js"></script>
+    <style>
+        body{
+            padding:0;
+            margin:0;
+        }
+        html{
+            height:100%;
+        }
+        div{
+            position: absolute;
+            width:80%;
+            height:40%;
+            margin:auto;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+        }
+        canvas{
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div ng-controller="myCtrl" ng-app="mouseEx">
+        <p>鼠标进入</p>
+        <canvas ng-mouseenter="c=c+1" ng-init="c=1"></canvas>{{c}}
+        <p>鼠标点下去</p>
+        <canvas ng-mousedown="m=m+2" ng-init="m=1"></canvas>{{m}}
+        <p>鼠标离开</p>
+        <canvas ng-mouseleave="n=n+3" ng-init="n=1"></canvas>{{n}}
+        <p>鼠标移动</p>
+        <canvas ng-mousemove="a=a+4" ng-init="a=1"></canvas>{{a}}
+        <p>鼠标进入</p>
+        <canvas ng-mouseover="b=b+5" ng-init="b=1"></canvas>{{b}}
+        <p>鼠标点击后松开</p>
+        <canvas ng-mouseup="d=d+6" ng-init="d=1"></canvas>{{d}}
+    </div>
+    <script>
+        angular.module('mouseEx',[]).controller('myCtrl',function($scope){
+
+        })
+    </script>
+</body>
+</html>
