@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngReadonly</title>
+    <script src="angular.js"></script>
+</head>
+<body>
+<div ng-app="readonlyEx" ng-controller="myCtrl">
+    <p>ng-readonly need true or false</p>
+    <!--<input type="checkbox" ng-model="checked" ><br/>-->
+    <input type="text" ng-readonly="true" value="asd">
+</div>
+<script>
+    angular.module('readonlyEx',[]).controller('myCtrl',function(){
+
+    })
+</script>
+</body>
+</html>
