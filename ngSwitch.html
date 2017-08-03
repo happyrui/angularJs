@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="switchExample">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ngSwitch例子</title>
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+        angular.module('switchExample', [])
+            .controller('ExampleController', ['$scope', function ($scope) {
+                $scope.items = ['settings', 'home', 'other'];
+                $scope.selection = $scope.items[0];
+            }]);
+    </script>
+    <style type="text/css">
+        .animate-switch-container {
+            position: relative;
+            background: white;
+            border: 1px solid black;
+            height: 40px;
+            overflow: hidden;
+        }
+        .animate-switch {
+            padding: 10px;
+        }
+        .animate-switch.ng-animate {
+            -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+            transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .animate-switch.ng-leave.ng-leave-active,
+        .animate-switch.ng-enter {
+            top: -50px;
+        }
+        .animate-switch.ng-leave,
+        .animate-switch.ng-enter.ng-enter-active {
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="ExampleController" ng-app="switchExample">
+    <select ng-model="selection" ng-options="item for item in items"></select>
+    <tt>selection={{selection}}</tt>
+    <hr />
+    <div class="animate-switch-container"
+         ng-switch on="selection">
+        <div class="animate-switch" ng-switch-when="settings">Settings Div</div>
+        <div class="animate-switch" ng-switch-when="home">Home Span</div>
+        <div class="animate-switch" ng-switch-default>default</div>
+    </div>
+</div>
+<div>
+    类似于使用ng-if ,但ng-if需要true or false,ng-switch-when 类似于switch,用的是 值
+</div>
+</body>
+</html>
