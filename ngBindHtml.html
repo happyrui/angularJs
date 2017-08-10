@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngBindHtml</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="angular-sanitize.min.js"></script>
+</head>
+<body ng-controller="ctrl" ng-app="app">
+    <p>ng-bind 把值当作字符串</p>
+    <p>ng-bind-html 把值当作html内容</p>
+    <div ng-bind="name"></div>
+    <div ng-bind-html="username"></div>
+    <div ng-bind-template="{{first}}{{last}}"></div>
+<script>
+    angular.module('app',['ngSanitize']).controller('ctrl',['$scope',function ($scope) {
+        $scope.name="aaa";
+        $scope.username='I am an <code>HTML</code>string with ' +
+            '<a href="#">links!</a> and other <em>stuff</em>';
+        $scope.first = '111';
+        $scope.last = '222';
+    }]);
+</script>
+</body>
+</html>
