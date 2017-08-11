@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+		}
+		html{
+			height: 100%;
+		}
+		form{
+			width: 50%;
+			height: 600px;
+			position: absolute;
+			margin: auto;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body>
+	<form ng-app="myApp" ng-controller="formYanzheng" name="myForm">
+		<p>
+			name:<input type="text" name="user" ng-model="user" ng-minlength="4" ng-maxlength="10" required>
+			<span style="color:red;" ng-show="myForm.user.$dirty && myForm.user.$invalid">输入字符在4到10位</span>
+			<span ng-show="myForm.user.$error.required">用户名必须</span>
+			<span ng-show="myForm.user.$error.minlength">要求最少4位</span>
+		</p>
+		<p>
+			email:<input type="email" name="email" ng-model="email" required>
+			<span style="color:red;" ng-show="myForm.email.$dirty && myForm.email.$invalid">email为全英文</span>
+			<span ng-show="myForm.email.$error.required">邮箱必须</span>
+			<span ng-show="myForm.email.$error.email">邮箱非法</span>
+		</p>
+		<p>
+			邮编:<input type="text" name="youbian" ng-model="youbian" required ng-pattern="/[1-9]\d{5}(?!\d)/" ng-minlength="6" ng-maxlength="6">
+			<span style="color:red;" ng-show="myForm.youbian.$dirty && myForm.youbian.$invalid">必须是正确邮编</span>
+			<span ng-show="myForm.youbian.$error.required">邮编必须</span>
+		</p>
+		<p>
+			url:<input type="url" name="url" ng-model="url" required>
+			<!-- <span ng-show="myForm.url.$dirty && myForm.url.$invalid">请输入正确的网址</span> -->
+			<!-- <span ng-show="myForm.url.$error.required"></span> -->
+			<span ng-show="myForm.url.$error.url">输入正确的URL</span>
+		</p>
+		<p>
+			password:<input type="password" name="password" ng-model="password" ng-minlength="6">
+			<span style="color:red;" ng-show="myForm.password.$dirty && myForm.password.$invalid">请输入最少6位密码</span>
+			<span ng-show="myForm.password.$pristine">密码必须</span>
+		</p>
+		<p>
+			<input type="submit" ng-disabled="myForm.user.$dirty && myForm.user.$invalid || 
+			myForm.email.$dirty && myForm.email.$invalid || myForm.youbian.$dirty && myForm.youbian.$invalid ||
+			myForm.url.$dirty && myForm.url.$invalid || myForm.password.$dirty && myForm.password.$invalid ">
+		</p>
+	</form>
+<!-- 	<pre>
+	{
+  "$error": {
+    "required": [
+      {
+        "$validators": {},
+        "$asyncValidators": {},
+        "$parsers": [],
+        "$formatters": [
+          null
+        ],
+        "$viewChangeListeners": [],
+        "$untouched": true,
+        "$touched": false,
+        "$pristine": true,
+        "$dirty": false,
+        "$valid": false,
+        "$invalid": true,
+        "$error": {
+          "required": true
+        },
+        "$name": "email",
+        "$options": null
+      }
+    ]
+  },
+  "$name": "theForm",
+  "$dirty": false,
+  "$pristine": true,
+  "$valid": false,
+  "$invalid": true,
+  "$submitted": false,
+  "email": {
+    "$validators": {},
+    "$asyncValidators": {},
+    "$parsers": [],
+    "$formatters": [
+      null
+    ],
+    "$viewChangeListeners": [],
+    "$untouched": true,
+    "$touched": false,
+    "$pristine": true,
+    "$dirty": false,
+    "$valid": false,
+    "$invalid": true,
+    "$error": {
+      "required": true
+    },
+    "$name": "email",
+    "$options": null
+  },
+  "sex": {
+    "$validators": {},
+    "$asyncValidators": {},
+    "$parsers": [],
+    "$formatters": [],
+    "$viewChangeListeners": [],
+    "$untouched": true,
+    "$touched": false,
+    "$pristine": true,
+    "$dirty": false,
+    "$valid": true,
+    "$invalid": false,
+    "$error": {},
+    "$name": "sex",
+    "$options": null
+  }
+}
+	</pre> -->
+	<script>
+	angular.module('myApp',[]).controller('formYanzheng',function($scope){
+		$scope.user = "viviarui";
+		$scope.email = "zzzzz@qq.com";
+		$scope.youbian = "100000";
+		$scope.url = "https://github.com/viviarui"
+	});
+	</script>
+</body>
+</html>
