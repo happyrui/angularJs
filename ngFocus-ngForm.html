@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngFocus and ngForm</title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="focusAform" ng-controller="myCtrl">
+        <h6>获取一次焦点就执行一次+1</h6>
+        <input type="text" ng-focus="c=c+1" ng-init="c=0">
+        <h1>{{c}}</h1>
+
+        <ng-form name="outterForm">
+            <div><input type="text" name="username"></div>
+            <ng-form name="innerForm">
+                <input type="text" name="userurl">
+                <ng-form nmae="form1">
+                    <button>tijiao</button>
+                </ng-form>
+            </ng-form>
+        </ng-form>
+    </div>
+    <script>
+        angular.module('focusAform',[]).controller('myCtrl',function(){
+
+        })
+    </script>
+</body>
+</html>
