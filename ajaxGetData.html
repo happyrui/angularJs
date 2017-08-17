@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Access-Control-Allow-Origin" content="*"> -->
+    <title>Document</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body >
+<div ng-controller="httpCtrol" ng-app="myApp">
+    <!--<ul>-->
+    <!--<li ng-repeat="x in names">-->
+    <!--{{ x.user + ', ' + x.email + ',' + x.youbian + ',' + x.url}}-->
+    <!--</li>-->
+    <!--</ul>-->
+    <p ng-model="name">{{name}}</p>
+</div>
+<script>
+    angular.module('myApp',[]).controller('httpCtrol',function($scope){
+        console.log('1');
+
+        jQuery.ajax({
+            type:'GET',
+            url:'http://ot31wbk51.bkt.clouddn.com/xx.txt',
+            success:function(response){
+                $scope.$apply(function() {   //使用$apply 来改变其指向
+                    $scope.name = response;
+                    console.log($scope.name);
+                });
+            },
+            error:function(){
+                console.log('error');
+            }
+        })
+    });
+</script>
+</body>
+</html>
