@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>equals</title>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="myCtrl">
+	<p>类似于全等 === 返回boolean</p>
+	<div>
+		<button ng-click="button1()">值与值</button>
+		<button ng-click="button2()">值与boolean</button>
+		<button ng-click="button3()">字符串与字符串</button>
+		<button ng-click="button4()">对象与对象</button>
+	</div>
+	<script>
+	angular.module('app', []).controller('myCtrl', ['$scope', function($scope){
+		var obj1 = {'name':'lili','age':'21'};
+		var obj2 = {'name':'lili','age':'21'};
+		$scope.button1 = function(){
+			alert(angular.equals(1,1));
+		};
+		$scope.button2 = function(){
+			alert(angular.equals(1,false));
+		};
+		$scope.button3 = function(){
+			alert(angular.equals('a','a'));
+		};
+		$scope.button4 = function(){
+			alert(angular.equals(obj1,obj2))
+		}
+	}])
+	</script>
+</body>
+</html>
