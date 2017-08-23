@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ex4</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        html{
+            height: 100%;
+        }
+        form{
+            width: 50%;
+            height: 600px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+<body ng-app="app" ng-controller="myCtrl">
+    <form name="register_form" novalidate>  
+        <div class="form-group">  
+            <label for="username">用户名:</label>  
+
+            <!-- ng-pattern="/PATTERN/"确保输入项符合正则 -->  
+            <input type="text" id="username" ng-model="username" ensure-unique="" class="form-control" name="username" required ng-pattern="/^[^#]*$/">  
+            <span ng-show="register_form.username.$valid"></span>  
+        </div>  
+        <div ng-show="register_form.username.$error.pattern">  
+            <strong>请注意！</strong>  
+            用户名不能带#号。  
+        </div>  
+        <div ng-show="register_form.username.$error.required && register_form.username.$touched">  
+            <strong>请注意！</strong>  
+            用户名不能为空。  
+        </div>  
+        <div ng-show="register_form.username.$error.unique">  
+            <strong>请注意！</strong>  
+            用户名已经存在。  
+        </div>
+        <div>  
+            <label for="_password">密码:</label>  
+
+            <!-- ng-minlength="num"让密码不能小于最小长度 -->  
+            <input type="password" id="_password" ng-model="data._password" class="form-control" required ng-minlength="8" name="_password">  
+            <span ng-show="register_form._password.$valid"></span>  
+        </div>  
+        <div ng-show="register_form._password.$error.minlength && register_form._password.$touched">  
+            <strong>请注意！</strong>  
+            密码长度不能少于八位。  
+        </div>  
+        <div ng-show="register_form._password.$error.required && register_form._password.$touched">  
+            <strong>请注意！</strong>  
+            密码不能为空。  
+        </div>  
+        <div>  
+            <label for="password">确认密码:</label>  
+            <input type="password" id="password" ng-model="user.password" class="form-control" name="password" required pwd-repeat>  
+            <span ng-show="register_form.password.$valid"></span>  
+        </div>  
+        <div ng-show="register_form.password.$error.pwdRepeat && register_form.password.$touched">  
+            <strong>请注意！</strong>  
+            两次输入的密码不相同。  
+        </div>  
+        <div ng-show="register_form.password.$error.required && register_form.password.$touched">  
+            <strong>请注意！</strong>  
+            请再次输入密码。  
+        </div>  
+        <div>  
+            手机号:
+            <div>  
+                <div>  
+                    <input type="text" id="phone" ng-model="phone" name="phone" class="form-control" required ng-minlength="11" phone> 
+                    <span class="error" ng-show="register_form.phone.$error.unique">手机号码已存在</span> 
+                </div>   
+            </div>  
+        </div>   
+        <div ng-show="register_form.phone.$touched && !register_form.phone.$error.phone && (register_form.phone.$error.required || register_form.phone.$error.minlength )">  
+            <strong>请注意！</strong>  
+            请输入正确的手机号。  
+        </div>  
+        <!-- 在表单不合法时禁用提交按钮 -->  
+        <button type="submit" ng-disabled="register_form.$invalid" ng-click="save()">提交</button>  
+    </form>  
+    <script>
+    'use strict';  
+    angular.module('app', [])  
+    .controller('myCtrl', function ($scope) {  
+        $scope.data = {};  
+        $scope.save = function () {  
+            alert('保存成功！')  
+        }  
+    }) 
+    //判断用户名是否已经存在
+    .directive('ensureUnique', function ($http, $q) {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                ctrl.$asyncValidators.ensureUnique = function(modelValue, viewValue){
+                    var d = $q.defer();
+                    $http.get('http://ot31wbk51.bkt.clouddn.com/data3.txt')
+                    .then(function successCallback(namelist){
+                        for(var i=0;i<namelist.data.length;i++){
+                            //debugger
+                            //console.log(namelist.data[i].user);
+                        
+                                if(modelValue === namelist.data[i].user){
+                                    console.log(modelValue);
+                                    return ctrl.$setValidity('unique',false);
+                                }else{
+                                    ctrl.$setValidity('unique', true); 
+                                    d.resolve();  
+                                }
+                            
+                        }
+                    },
+                    function errorCallback(data) {
+                        console.log('error')
+                    });
+                    return d.promise;
+                }
+            }  
+        }
+    }) 
+      
+    // 判断手机号是否重复  
+    .directive('phone', function ($q, $http) {  
+        return {  
+            require: 'ngModel',  
+            link: function (scope, ele, attrs, ctrl) {  
+                ctrl.$asyncValidators.phone = function (modelValue, viewValue) {  
+                    var d = $q.defer();  
+                    $http.get('http://ot31wbk51.bkt.clouddn.com/phone.json')  
+                    .success(function (phoneList) {  
+                        if (phoneList.indexOf(parseInt(modelValue)) >= 0) {  
+                            //d.reject(); 
+                            console.log(modelValue) 
+                            ctrl.$setValidity('unique', false); 
+                        } else {  
+                            ctrl.$setValidity('unique', true); 
+                            d.resolve();   
+                        }  
+                    })
+                    .error(function(data){
+                        console.log('s')
+                        //d.$setValidity('unique', false);
+                    }); 
+                    return d.promise;  
+                }  
+            }  
+        }  
+    })  
+      
+    // 验证两次输入的密码是否相同的自定义验证  
+    .directive('pwdRepeat', function () {  
+        return {  
+            require: 'ngModel',  
+            link: function (scope, ele, attrs, ctrl) {  
+                ctrl.$validators.pwdRepeat = function (modelValue) {    
+                    // 当值为空时，通过验证，因为有required  
+                    if (ctrl.$isEmpty(modelValue)) {  
+                        return true;  
+                    }       
+                    return modelValue === scope.data._password ? true : false;  
+                }  
+            }  
+        }  
+    })  
+    </script>
+</body>
+</html>
