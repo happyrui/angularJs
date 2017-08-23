@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="http://apps.bdimg.com/libs/angular.js/1.2.16/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+<div ng-controller="myCtrl1">
+    <input type="button" ng-click="hello()" value="ctrl1"></input>
+</div>
+<div ng-controller="myCtrl2">
+    <input type="button" ng-click="hello()" value="ctrl2"></input>
+</div>
+<div ng-controller="myCtrl3">
+    <input type="button" ng-click="hello()" value="ctrl3"></input>
+</div>
+<script type="text/javascript">
+    var app = angular.module("myApp",[]);
+    app.factory("hello1",function(){
+        return {
+            hello:function(){
+                console.log("hello1 service");
+            }
+        }
+    });
+    app.factory("hello2",function(){
+        return {
+            hello:function(){
+                console.log("hello2 service");
+            }
+        }
+    });
+
+    var $injector = angular.injector();
+    console.log(angular.equals($injector.get('$injector'),$injector));//true
+    console.log(angular.equals($injector.invoke(function($injector) {return $injector;}),$injector));//true
+
+    //inferred
+    // $injector.invoke(function(serviceA){});
+    app.controller("myCtrl1", function($scope,hello1,hello2){
+        $scope.hello = function(){
+            hello1.hello();
+            hello2.hello();
+        }
+    });
+
+    //annotated
+    // function explicit(serviceA) {};
+    // explicit.$inject = ['serviceA'];
+    // $injector.invoke(explicit);
+    var myCtrl2 = function($scope,hello1,hello2){
+        $scope.hello = function(){
+            hello1.hello();
+            hello2.hello();
+        }
+    }
+    //myCtrl2.$injector = ['hello1','hello2'];
+    //myCtrl2.angular.injector() = ['hello1','hello2'];
+    app.controller("myCtrl2", myCtrl2);
+
+    //inline
+    app.controller("myCtrl3",['$scope','hello1','hello2',function($scope,hello1,hello2){
+        // app.controller("myCtrl3",['$scope','hello1','hello2',function(a,b,c){
+        // a.hello = function(){
+        //  b.hello();
+        //  c.hello();
+        // }
+        $scope.hello = function(){
+            hello1.hello();
+            hello2.hello();
+        }
+    }]);
+
+    console.log($injector.annotate(myCtrl2));//["$scope","hello1","hello2"]
+</script>
+</body>
+</html>
