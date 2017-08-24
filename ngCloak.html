@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngCloak-ngCut</title>
+    <script src="angular.js"></script>
+</head>
+<body ng-app="cloakEx" ng-controller="myCtrl">
+    <p>避免由HTML模板显示造成不良的闪烁效果</p>
+    <div id="template1" ng-cloak>{{ 'hello' }}</div>
+    <div id="template2" class="ng-cloak">{{ 'world' }}</div>
+    <p>剪切事件指定自定义行为</p>
+    <input type="text" ng-model="value" ng-init="cut=false;value='cut me'" ng-cut="cut=true">
+    cut:{{cut}}
+    <script>
+        angular.module('cloakEx',[]).controller('myCtrl',function($scope){
+
+        })
+    </script>
+</body>
+</html>
