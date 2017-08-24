@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngClass-ngClassOdd-ngClassEven</title>
+    <script src="angular.js"></script>
+    <style>
+        .strike {
+            text-decoration: line-through;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .red {
+            color: red;
+        }
+        .active{
+            color:red;
+        }
+        .inactive{
+            color:green;
+        }
+        .test{
+            color:red;
+        }
+        .odd{
+            color:red;
+        }
+        .even{
+            color:yellow;
+        }
+
+    </style>
+</head>
+<body>
+    <div ng-app="classEx" ng-controller="myCtrl">
+        <div>
+            <p>本质上是 true或false的选择</p>
+            在angular中为我们提供了3种方案处理class：
+            1：scope变量绑定，（不推荐使用）
+            2：字符串数组形式。
+            3：对象key/value处理。
+        </div>
+        <h6>对象key/value处理</h6>
+        <p ng-class="{strike: deleted, bold: important, red: error}">Map Syntax Example</p>
+        <input type="checkbox" ng-model="deleted"> deleted (apply "strike" class)<br>
+        <input type="checkbox" ng-model="important"> important (apply "bold" class)<br>
+        <input type="checkbox" ng-model="error"> error (apply "red" class)
+        <hr>
+        <!--使用字符串数组-->
+        <h6>使用字符串数组</h6>
+        <p ng-class="{true:'active',false:'inactive'}[isActive]">qwwqw</p>
+        <!--使用scope变量绑定-->
+        <h6>使用scope变量绑定</h6>
+        <p class="{{test}}">this is a test,不推荐使用</p>
+
+        <div>
+            <h6>奇odd红  偶even黄</h6>
+            <p>这里需要注意，ng-class-even 使用"'even'"</p>
+            <ol ng-init="names=['qq','baidu','ali','jd']">
+                <li ng-repeat="name in names">
+                    <span ng-class-even="'even'" ng-class-odd="'odd'">
+                        {{name}}
+                    </span>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+<script>
+    angular.module('classEx',[]).controller('myCtrl',function($scope){
+        $scope.isActive = false ;
+        $scope.test = "classname";
+    })
+</script>
+</body>
+</html>
