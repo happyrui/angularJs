@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ngBindHtml例子</title>
+    <!--<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+    <script src="angular.js"></script>
+    <script src="angular-sanitize.min.js"></script>
+    <script type="text/javascript">
+        angular.module('bindHtmlExample', ['ngSanitize'])
+            .controller('ExampleController', ['$scope', function ($scope) {
+                console.log('1')
+                $scope.myHTML =
+                    'I am an <code>HTML</code>string with ' +
+                    '<a href="#">links!</a> and other <em>stuff</em>';
+            }]);
+    </script>
+</head>
+<body>
+<div ng-controller="ExampleController" ng-app="bindHtmlExample">
+    你将会看到
+    <p ng-bind-html="myHTML"></p>
+</div>
+</body>
+</html>
