@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="start">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="angular.js"></script>
+</head>
+<body>
+<h1>sign up</h1>
+<ng-form name="addUserForm" ng-controller="AddUserController">
+    <div ng-show="message">{{message}}</div>
+    <div>First name<input name="firstName" ng-model="user.firstName" required></div>
+    <div>Last name:<input ng-model='user.lastName' required></div>
+    <div>Email:<input type='email' ng-model='user.email' required></div>
+    <div>Age:<input type="number" ng-model='user.age'
+                    ng-maxlength='3'
+                    ng-min='1' required></div>
+    <div><button ng-click='addUser()' ng-disabled='!addUserForm.$valid'>Submit</button></div>
+</ng-form>
+<script type="text/javascript">
+    angular.module('start',[])
+        .controller('AddUserController',function($scope){
+            $scope.message='';
+            $scope.addUser=function(){
+                if($scope.user.firstName != $scope.user.lastName){
+                    $scope.message='两次名称不一致'
+                }else{
+                    $scope.message=$scope.user.firstName+","+$scope.user.email+","+$scope.user.age
+                }
+
+            };
+        })
+
+
+</script>
+</body>
+</html>
