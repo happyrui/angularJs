@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a 和 ngHref</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body >
+<div ng-app='app' ng-controller="ctrl">
+    <a href="" ng-click="click()">dianji</a>
+</div>
+    <a href="javascript:void(0)">zaidianji</a>
+    <p>避免 javascript:void(0)</p>
+    <div>angularjs的执行都是在DOM渲染完成之后，
+        如果我们在angularjs执行这个表达式之前点击了链接，那么就直接访问了/avatar/{{hash}}，
+        一般都会跳转到404页面，用户体验太烂了。</div>
+    <p> a ng-href="/avatar/{{hash}}">link1 /a </p>
+<script>
+    angular.module('app',[]).controller('ctrl',function($scope){
+        $scope.click = function(){
+            console.log('111');
+        }
+    });
+</script>
+</body>
+</html>
