@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>copyAentend</title>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="copyEx">
+    <div ng-controller="myCtrol">
+        <p>novalidate 禁止使用浏览器的默认验证，用于重写标准HTML5的验证</p>
+        <form novalidate class="simple-form">
+            name:<input type="text" ng-model="user.name"><br/>
+            email:<input type="text" ng-model="user.email"><br/>
+            gender:<input type="radio" ng-model="user.gender" value="male">male
+                   <input type="radio" ng-model="user.gender" value="female">female<br/>
+            <button ng-click="reset()">reset</button>
+            <button ng-click="update(user)">save</button>
+        </form>
+        <p>{{user | json}}</p>
+        <p>{{master | json}}</p>
+        <p>angular.copy(source,[destination])第二个参数可选。第一个表示要复制的那个值，第二个参数表示目的</p>
+        <p>angular.copy后，改变source不会影响destination，改变destination 不会改变source</p>
+
+        <p>ngular.extend(destination, source)</p>
+    </div>
+<script>
+    angular.module('copyEx',[])  //module 用于创建模块，名称和已有的 ng-app相同。
+        .controller('myCtrol',['$scope',function ($scope) {
+            $scope.master = {};
+            $scope.update = function(user){
+                $scope.master = angular.copy(user);
+            };
+            $scope.reset = function(){
+                angular.copy($scope.master,$scope.user);
+            };
+            $scope.reset();
+        }]);
+</script>
+</body>
+</html>
