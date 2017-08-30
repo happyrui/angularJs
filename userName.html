@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+		}
+		html{
+			height: 100%;
+		}
+		form{
+			width: 50%;
+			height: 600px;
+			position: absolute;
+			margin: auto;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body ng-app="myApp">
+	<form novalidate ng-submit="addSendDepartments()" role="form" name="addForm">
+        user:<input type="text" ng-model="name" ensure-unique="" required name="name"  class="form-control"/>
+        <span class="error" ng-show="addForm.name.$error.unique">部门名称已存在</span>
+        
+        <button type="submit" ng-disabled="addForm.$invalid">提交</button>
+    </form>
+	<script>
+	angular.module('myApp',[])
+	.directive('ensureUnique', function ($http, $q) {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+            	ctrl.$asyncValidators.ensureUnique = function(modelValue, viewValue){
+            		var d = $q.defer();
+            		$http.get('http://ot31wbk51.bkt.clouddn.com/data3.txt')
+            		.then(function successCallback(namelist){
+            			for(var i=0;i<namelist.data.length;i++){
+            				//debugger
+            				//console.log(namelist.data[i].user);
+            			
+	            				if(modelValue == namelist.data[i].user){
+	            					console.log(modelValue);
+	            					return ctrl.$setValidity('unique',false);
+		            			}else{
+		            				ctrl.$setValidity('unique', true); 
+		                            d.resolve();  
+		            			}
+	            			
+            			}
+            		},
+            		function errorCallback(data) {
+            			console.log('error')
+            		});
+            		return d.promise;
+            	}
+            }  
+        }
+    })
+	</script>
+</body>
+</html>
