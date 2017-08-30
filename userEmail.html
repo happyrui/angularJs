@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		body{
+			padding: 0;
+			margin: 0;
+		}
+		html{
+			height: 100%;
+		}
+		form{
+			width: 50%;
+			height: 600px;
+			position: absolute;
+			margin: auto;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body ng-app="app">
+	<div class="form-group">
+        <input type="email" name="email" class="col-md-12 taginput" placeholder="登录邮箱" asynverification ng-model="email" required>
+        <span ng-show=' myForm.email.$invalid && myForm.email.$dirty' >邮箱信息错误。</span>
+        <span ng-show="myForm.email.$pending.asynverification">正在检测邮箱是否已注册...</span>
+        <span ng-show="myForm.email.$error.asynverification">邮箱已注册，请更换邮箱!</span>
+    </div>
+	<script>
+	angular.module('app', [])  
+    .directive('asynverification', function($http, $q) {
+      return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+          ctrl.$asyncValidators.asynverification = function(modelValue, viewValue) {
+            var d = $q.defer();
+            return $http({method: 'GET', url:'http://ot31wbk51.bkt.clouddn.com/data3.txt'})
+                 .then(function(response){
+                    for(var i=0;i<response.data.length;i++){
+                        //console.log(response.data[i].email);
+                        if(modelValue == response.data[i].email){
+                        	console.log(modelValue)
+                            ctrl.$setValidity('asynverification',false);
+                            d.reject();
+                        }else{
+                            ctrl.$setValidity('asynverification', true); 
+		                    d.resolve(); 
+                        }
+                    }  
+                });
+          };
+        }
+      };
+    });
+  
+// .directive('username', function ($q, $http) {  
+//     return {  
+//         require: 'ngModel',  
+//         link: function (scope, ele, attrs, ctrl) {  
+//             ctrl.$validators.username = function (modelValue, viewValue) {  
+//                 if (modelValue) {  
+//                     return modelValue.length > 5 ? true : false;  
+//                 };  
+//                 return false;  
+//             }  
+//         }  
+//     }  
+// })  
+	</script>
+</body>
+</html>
